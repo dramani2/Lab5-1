@@ -9,8 +9,14 @@
  */
 public class Bank {
 
-    public String bankName;
+    /**
+     *
+     */
+    private String bankName;
 
+    /**
+     *
+     */
     public Bank() {
         bankName = "Illini Bank";
     }
@@ -29,6 +35,14 @@ public class Bank {
         /*
          * Implement this function
          */
+        double currentBalance = bankAccount.getAccountBalance();
+
+        if (currentBalance >= amount) {
+            bankAccount.setAccountBalance(currentBalance - amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -45,6 +59,13 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (amount > 0) {
+            double currentBalance = bankAccount.getAccountBalance();
+            bankAccount.setAccountBalance(currentBalance + amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -58,16 +79,25 @@ public class Bank {
      * @param amount to transfer
      * @return boolean
      */
-
     public boolean transferMoney(final BankAccount source, final BankAccount destination,
-            final double amount) {
+                                 final double amount) {
         /*
          * Implement this function
          */
+        double currentSourceBalance = source.getAccountBalance();
+
+        if (amount > 0 && currentSourceBalance >= amount) {
+            source.setAccountBalance(currentSourceBalance - amount);
+            double currentDestinationBalance = destination.getAccountBalance();
+            destination.setAccountBalance(currentDestinationBalance + amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * Change back account owner name.
+     * Change account owner name.
      *
      * @param bankAccount to change
      * @param name new name to set
@@ -77,9 +107,12 @@ public class Bank {
         /*
          * Implement this function
          */
+        bankAccount.setAccountOwner(name);
     }
 
-    public static int totalAccounts = 0;
+    /** */
+    private static int totalAccounts = 0;
+
     /**
      * Uses static variable to get number of bank accounts opened.
      *
@@ -89,6 +122,15 @@ public class Bank {
         /*
          * Implement this function
          */
+        return totalAccounts;
+    }
+
+    /**
+     *
+     * @param newTotalAccounts  test.
+     */
+    public static void setNumberOfAccount(final int newTotalAccounts) {
+        totalAccounts = newTotalAccounts;
     }
 
     /**
